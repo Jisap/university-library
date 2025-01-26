@@ -1,5 +1,7 @@
 import Image from 'next/image'
 import React from 'react'
+import { Button } from './ui/button'
+import BookCover from './BookCover'
 
 const BookOverview = ({
   title,
@@ -49,8 +51,21 @@ const BookOverview = ({
 
           <p className="book-description">{description}</p>
 
-          
+          <Button className="bg-light-200">
+            <Image 
+              src="/icons/book.svg"
+              alt="book"
+              width={20}
+              height={20}
+            />
+            <p className='font-bebas-neue text-xl text-dark-100'>Borrow</p>
+          </Button>    
+        </div>
 
+        <div className='relative flex flex-1 justify-center'>
+          <div className='relative'>
+            <BookCover />
+          </div>
         </div>
       </div>
     </section>
