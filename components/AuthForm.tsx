@@ -20,7 +20,7 @@ import Link from 'next/link';
 import ImageUpload from './ImageUpload';
 
 
-interface Props<T extends FieldValues> {
+interface Props<T extends FieldValues> {                                  // Puede manejar cualquier tipo de datos para el formulario.
   schema: ZodType<T>;
   defaultValues: T;
   onSubmit: (data: T) => Promise<{ success: boolean; error?: string }>;
@@ -36,9 +36,9 @@ const AuthForm = <T extends FieldValues>({
 
   const isSignIn = type === "SIGN_IN";
 
-  const form: UseFormReturn<T> = useForm({
-    resolver: zodResolver(schema),
-    defaultValues: defaultValues as DefaultValues<T>,
+  const form: UseFormReturn<T> = useForm({                                // useForm se utiliza para inicializar el formulario
+    resolver: zodResolver(schema),                                        // resolver valida los datos enviados
+    defaultValues: defaultValues as DefaultValues<T>,                     // DefaultValues inicializa los valores del formulario por defecto
   });
 
   const handleSubmit: SubmitHandler<T> = async (data) => { };
@@ -56,18 +56,19 @@ const AuthForm = <T extends FieldValues>({
 
       <Form {...form}>
         <form 
-          onSubmit={form.handleSubmit(handleSubmit)} 
+          onSubmit={form.handleSubmit(handleSubmit)}     
           className="space-y-6 w-full"
         >
-          {Object.keys(defaultValues).map((field) => (
-            <FormField
+          {Object.keys(defaultValues).map((field) => (       // Se recorren las claves de defaultValues para generar dinámicamente los campos del formulario
+            <FormField                                       // FormField es un componente que encapsula la lçogica de cada campo del formulario
               key={field}
               control={form.control}
-              name={field as Path<T>}
+              name={field as Path<T>}                        // Path<T>: Es un tipo de React Hook Form que asegura que el nombre del campo (name) sea una clave válida de T.
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className='capitalize'>
-                    {FIELD_NAMES[field.name as keyof typeof FIELD_NAMES]}
+                    {/* FIELD_NAMES y FIELD_TYPES: Son constantes que definen las etiquetas y tipos de los campos. */}
+                    {FIELD_NAMES[field.name as keyof typeof FIELD_NAMES]} 
                   </FormLabel>
                   <FormControl>
                     {field.name === "universityCard" ? (
@@ -82,8 +83,8 @@ const AuthForm = <T extends FieldValues>({
                     ) : (
                       <Input
                         required
-                        type={FIELD_TYPES[field.name as keyof typeof FIELD_TYPES]}
-                        {...field}
+                          type={FIELD_TYPES[field.name as keyof typeof FIELD_TYPES]} // Define el tipo de entrada (text, email, password)
+                        {...field}                                                   // Se pasan las propiedades de field a Input (value, onChange, onBlur) -> conecta el input con reactHookForm -> maneja su estado y validación
                         className="form-input"
                       />
                     )}
