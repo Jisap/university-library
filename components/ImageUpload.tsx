@@ -10,6 +10,15 @@ import {
 } from "imagekitio-next";
 import config from '@/lib/config';
 
+const {
+  env: {
+    imagekit: { 
+      publicKey, 
+      urlEndpoint 
+    },
+  },
+} = config;
+
 interface Props {
   type: "image" | "video";
   accept: string;
@@ -51,7 +60,13 @@ const ImageUpload = ({
   value,
 }: Props) => {
   return (
-    <div>ImageUpload</div>
+    <ImageKitProvider
+      publicKey={publicKey}
+      urlEndpoint={urlEndpoint}
+      authenticator={authenticator}
+    >
+    
+    </ImageKitProvider>
   )
 }
 
