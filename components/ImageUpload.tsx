@@ -33,7 +33,7 @@ interface Props {
 
 const authenticator = async () => {
   try {
-    const response = await fetch(`${config.env.apiEndpoint}/api/auth/imagekit`) // Devuelve los parametros de autenticación
+    const response = await fetch(`${config.env.apiEndpoint}/api/auth/imageKit`) // Devuelve los parametros de autenticación
     if (!response.ok) {
       const errorText = await response.text();
 
@@ -76,7 +76,7 @@ const ImageUpload = ({
       variant: "destructive",
     });
   }
-  
+
   const onSuccess = (res:any) => {
     setFile(res)               // Se actualiza el estado file con la respuesta del servidor
     onFileChange(res.filePath) // Se ejecuta la función onFileChange con el filePath de la respuesta
@@ -103,7 +103,6 @@ const ImageUpload = ({
         className='upload-btn bg-dark-300'
         onClick={(e) => {
           e.preventDefault();
-
           if (ikUploadRef.current) {      // Si la ref existe
             // @ts-ignore
             ikUploadRef.current?.click(); // Abre el selector de archivos
