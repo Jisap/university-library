@@ -97,7 +97,7 @@ const ImageUpload = ({
         ref={ikUploadRef}
         onError={onError}
         onSuccess={onSuccess}
-        filename="text-upload.png"
+        fileName="text-upload.png"
       />
       <button 
         className='upload-btn bg-dark-300'
@@ -121,10 +121,10 @@ const ImageUpload = ({
         {file && <p className='upload-filename'>{file.filePath}</p>}
       </button>
 
-      {file && (
+      {file && file.filePath &&(
         <IKImage 
-          alt={file.filePath}
-          path={file.filePath}
+          alt={file.filePath || "default-alt"}
+          path={file.filePath || ""}
           width={500}
           height={500}
         />
