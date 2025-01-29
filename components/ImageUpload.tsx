@@ -33,7 +33,7 @@ interface Props {
 
 const authenticator = async () => {
   try {
-    const response = await fetch(`${config.env.apiEndpoint}/api/auth/imageKit`) // Devuelve los parametros de autenticación
+    const response = await fetch(`${config.env.apiEndpoint}/api/imageKit`) // Devuelve los parametros de autenticación
     if (!response.ok) {
       const errorText = await response.text();
 
