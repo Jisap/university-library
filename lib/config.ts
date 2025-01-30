@@ -11,8 +11,9 @@ const config = {
     upstash: {
       redisUrl: process.env.UPSTASH_REDIS_URL!,
       redisToken: process.env.UPSTASH_REDIS_TOKEN!,
-    //  qstashUrl: process.env.QSTASH_URL!,
-    //  qstashToken: process.env.QSTASH_TOKEN!,
+      qstashUrl: process.env.QSTASH_URL!,
+      qstashToken: process.env.QSTASH_TOKEN!,
+      upstashWorkflowUrl: process.env.UPSTASH_WORKFLOW_URL
     },
   //  resendToken: process.env.RESEND_TOKEN!,
   },
