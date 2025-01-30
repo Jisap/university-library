@@ -6,7 +6,7 @@ import { users } from "@/database/schema";
 import { hash } from "bcryptjs";
 import { signIn } from "@/auth";
 import { headers } from "next/headers";
-//import ratelimit from "@/lib/ratelimit";
+import ratelimit from "../../lib/ratelimits";
 import { redirect } from "next/navigation";
 //import { workflowClient } from "@/lib/workflow";
 import config from "@/lib/config";
@@ -14,10 +14,10 @@ import config from "@/lib/config";
 export const signInWithCredentials = async (params: Pick<AuthCredentials, "email" | "password">,) => {
   const { email, password } = params;
 
-  //const ip = (await headers()).get("x-forwarded-for") || "127.0.0.1";
-  //const { success } = await ratelimit.limit(ip);
+  const ip = (await headers()).get("x-forwarded-for") || "127.0.0.1"; // Obtener la IP del cliente
+  const { success } = await ratelimit.limit(ip);                      // Se limitan la cantidad de peticiones por IP
 
-  //if (!success) return redirect("/too-fast");
+  if (!success) return redirect("/too-fast");                         // Si se supero el límite redirect a la página de error
 
   try {
     const result = await signIn("credentials", {
